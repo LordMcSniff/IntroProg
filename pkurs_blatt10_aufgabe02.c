@@ -4,25 +4,28 @@
 
 char *prepare_repeated_message(char *message, int repeat)
 {
+    if (repeat <= 0)
+        return calloc(1, 1);
+
     // len including \0 or \n
     int len = strlen(message) + 1;
-    char *out = calloc(repeat * len + 1, sizeof(char)); // add terminator
+    char *out = calloc(repeat * len, sizeof(char));
+    char line_feed = '\n';
 
-    for (int i = 0; i < repeat; i++)
+    strcpy(out, message);
+    for (int i = 0; i < repeat - 1; i++)
     {
-        // include new line in len
-        memcpy(out + len * i, message, len);
-        // add line feed \n
-        out[len * (i + 1) - 1] = '\n';
+        strncat(out, &line_feed, 1);
+        strcat(out, message);
     }
-    // and since calloc initializes all to 0 you dont even need to set the terminator :D
+
     return out;
 }
 
 int main()
 {
     char *out = prepare_repeated_message("Hallo Osiris!", 0);
-    printf("%s", out);
+    printf("%s\n", out);
     free(out);
     return 0;
 }
