@@ -81,7 +81,7 @@ nicht-negativen, ganzzahligen Exponenten `exp`.
 
 _Benutzen Sie keine Schleifen, die Aufgabe soll über Rekursion gelöst werden!_
 */
-int power(int b, int exp) {
+int power(int b, int exp){
     if (exp <= 0)
         return 1;
 
