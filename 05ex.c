@@ -140,7 +140,7 @@ zu vier direkte Nachbarn - die Diagonalen zählen nicht.
 
 Funktionen, um die Farbe eines Pixels auf der Canvas zu bestimmen, sind im Headerfile der Canvas dokumentiert.
 */
-Canvas bucket_fill(Canvas c, int x, int y) {
+Canvas bucket_fill(Canvas c, int x, int y) { 
     if (pixel_is_black(c, x, y))
         return c;
 
