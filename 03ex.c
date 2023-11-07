@@ -184,7 +184,12 @@ Diese Funktion soll ein gefülltes schwarzes Rechteck auf die Canvas zeichnen. D
 Koordinaten `(x, y)`. Die Breite des Rechtecks ist `width`, und die Höhe ist `height`. Falls das Rechteck nicht
 auf die Canvas passt, sollen einfach die Teile ignoriert werden welche außerhalb liegen würden.
 */
-Canvas draw_rectangle(Canvas c, int px, int py, int width, int height) {
+Canvas draw_rectangle(Canvas c, int x, int y, int width, int height) {
+    // Canvas draw_rectangle(Canvas c, int px, int py, int width, int height) {
+    // apparently we arent allowed to change the litteral function line. Retarded
+    int px = x;
+    int py = y;
+
     for (size_t x = 0; x < width; x++)
     {
         for (size_t y = 0; y < height; y++)
