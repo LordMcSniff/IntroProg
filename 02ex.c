@@ -17,8 +17,7 @@ und Ihre Lösungen zwischen den "BEGIN CHANGES" und "END CHANGES" eintragen.
 
 #include <stdio.h>
 
-int sum_divisible_both(int n)
-{
+int sum_divisible_both(int n) {
     int result = 0;
     /*
     Aufgabe 1a:
@@ -41,8 +40,7 @@ int sum_divisible_both(int n)
     return result;
 }
 
-int sum_divisible_or(int n)
-{
+int sum_divisible_or(int n) {
     int result = 0;
     /*
     Aufgabe 1b:
@@ -59,8 +57,7 @@ int sum_divisible_or(int n)
     return result;
 }
 
-int sum_divisible_either(int n)
-{
+int sum_divisible_either(int n) {
     int result = 0;
     /*
     Aufgabe 1c:
@@ -83,8 +80,7 @@ int sum_divisible_either(int n)
     return result;
 }
 
-int signum(int x)
-{
+int signum(int x) {
     long int result = 0;
     /*
     Aufgabe 2a:
@@ -103,8 +99,7 @@ int signum(int x)
     return result;
 }
 
-int is_leapyear(int year)
-{
+int is_leapyear(int year) {
     /*
     Aufgabe 2b:
     Im gregorianischen Kalender ist ein Jahr ein Schaltjahr, genau dann wenn die Jahreszahl durch 400 teilbar ist, oder
@@ -123,8 +118,7 @@ int is_leapyear(int year)
     /* END CHANGES */
 }
 
-int greatest_of_three(int a, int b, int c)
-{
+int greatest_of_three(int a, int b, int c) {
     int result = 0;
     /*
     Aufgabe 2c:
@@ -137,8 +131,7 @@ int greatest_of_three(int a, int b, int c)
     return result;
 }
 
-int is_prime(int n)
-{
+int is_prime(int n) {
     int result = 1;
     /*
     Aufgabe 3a:
@@ -160,8 +153,7 @@ int is_prime(int n)
     return result;
 }
 
-int sum_first_primes(int n)
-{
+int sum_first_primes(int n) {
     int result = 0;
     /*
     Aufgabe 3b:
