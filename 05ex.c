@@ -94,7 +94,12 @@ Diese Funktion soll den Sierpinski Carpet der Ordnung `n` auf die Canvas zeichne
 
 _Benutzen Sie keine Schleifen, die Aufgabe soll über Rekursion gelöst werden!_
 */
-Canvas sierpinski_carpet(Canvas c, int n, int px, int py) {
+Canvas sierpinski_carpet(Canvas c, int n, int x, int y){
+    // Canvas sierpinski_carpet(Canvas c, int n, int px, int py) {
+    // ist doch behindert, das nach den literall strings geprüft wird
+    int px = x;
+    int py = y;
+    
     if (n <= 0)
         return canvas_set_black(c, px, py);
 
