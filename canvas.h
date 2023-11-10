@@ -254,6 +254,24 @@ int canvas_eq (Canvas_* c1, Canvas_* c2){
 }
 
 /*
+ * Return whether two Canvasses are approximately equal (each channel of each pixel may be off by one).
+ */
+int canvas_eq_approx (Canvas_* c1, Canvas_* c2){
+    if (!canvas_dimensions_eq(c1, c2)) {
+        return false;
+    }
+
+    size_t len = canvas_size(c1);
+    for(size_t i = 0; i < len; i++){
+        if((c1->buffer[i] != c2->buffer[i]) && (c1->buffer[i] != c2->buffer[i] + 1) && (c1->buffer[i] != c2->buffer[i] - 1)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/*
 Return whether two Canvasses have equal pixels at the same position.
 */
 bool canvas_pixel_eq(Canvas_* c1, Canvas_* c2, size_t pos) {
@@ -299,7 +317,16 @@ Canvas_* canvas_diff(Canvas_* c1, Canvas_* c2) {
 /*
  * Save an image that contains both the two given Canvasses and a visualization of their differences.
  */
-void canvas_feedback(Canvas_* c1, Canvas_* c2, char* name){
+void canvas_feedback(Canvas_* c1, Canvas_* c2, char* name, bool did_error) {
+    uint8_t divider_color_r = 110;
+    uint8_t divider_color_g = 110;
+    uint8_t divider_color_b = 110;
+    if (did_error) {
+        divider_color_r = 200;
+        divider_color_g = 16;
+        divider_color_b = 0;
+    }
+
     Canvas_* diff = canvas_diff(c1,c2);
     Canvas_* feedback = canvas_new(c1->width,(c1->height*NUM_CHANNELS) + 10 , name);
 
@@ -318,9 +345,9 @@ void canvas_feedback(Canvas_* c1, Canvas_* c2, char* name){
 
     /* Draw second divider */
     for(size_t i = 0; i < (5*c1->width*NUM_CHANNELS); i= i+NUM_CHANNELS){
-        feedback->buffer[shared_index] = 110;
-        feedback->buffer[shared_index+1] = 110;
-        feedback->buffer[shared_index+2] = 110;
+        feedback->buffer[shared_index] = divider_color_r;
+        feedback->buffer[shared_index+1] = divider_color_g;
+        feedback->buffer[shared_index+2] = divider_color_b;
         shared_index = shared_index +NUM_CHANNELS;
     }
 
@@ -334,9 +361,9 @@ void canvas_feedback(Canvas_* c1, Canvas_* c2, char* name){
 
     /* Draw first divider */
     for(size_t i = 0; i < (5*c2->width*NUM_CHANNELS); i= i+NUM_CHANNELS){
-        feedback->buffer[shared_index] = 110;
-        feedback->buffer[shared_index+1] = 110;
-        feedback->buffer[shared_index+2] = 110;
+        feedback->buffer[shared_index] = divider_color_r;
+        feedback->buffer[shared_index+1] = divider_color_g;
+        feedback->buffer[shared_index+2] = divider_color_b;
         shared_index = shared_index +NUM_CHANNELS;
     }
 
