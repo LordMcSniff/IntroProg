@@ -356,7 +356,7 @@ int wrap_up(Tester *t)
 
 const char *format_char(char x)
 {
-    int size = snprintf("", 0, "%u", x);
+    int size = snprintf(NULL, 0, "%u", x);
     char *r = (char *)malloc(size + 1);
     snprintf(r, size + 1, "%u", x);
     return r;
@@ -375,7 +375,7 @@ void assert_char(Tester *t, char expected, char got, const char *context)
 }
 
 const char *format_uint(unsigned int x) {
-    int size = snprintf("", 0, "%u", x);
+    int size = snprintf(NULL, 0, "%u", x);
     char* r = (char*) malloc(size + 1);
     snprintf(r, size + 1, "%u", x);
     return r;
@@ -392,14 +392,14 @@ void assert_uint(Tester *t, unsigned int expected, unsigned int got, const char 
 }
 
 const char *format_int(int x) {
-    int size = snprintf("", 0, "%d", x);
+    int size = snprintf(NULL, 0, "%d", x);
     char* r = (char*) malloc(size + 1);
     snprintf(r, size + 1, "%d", x);
     return r;
 }
 
 const char *format_int32(int32_t x) {
-    int size = snprintf("", 0, "%d", x);
+    int size = snprintf(NULL, 0, "%d", x);
     char* r = (char*) malloc(size + 1);
     snprintf(r, size + 1, "%d", x);
     return r;
@@ -416,7 +416,7 @@ void assert_int(Tester *t, int expected, int got, const char *context) {
 }
 
 const char *format_float(float x) {
-    int size = snprintf("", 0, "%f", x);
+    int size = snprintf(NULL, 0, "%f", x);
     char* r = (char*) malloc(size + 1);
     snprintf(r, size + 1, "%f", x);
     return r;
@@ -442,18 +442,19 @@ void assert_canvas(Tester *t, Canvas_ *expected, Canvas_ *got, const char *conte
         const char *rendered_x = format_int32(got->first_invalid_x);
         const char *rendered_y = format_int32(got->first_invalid_y);
 
-        int actual_context_size = (context ? strlen(context) : strlen("\n\n")) + strlen("\n\n" TESTRUNNER_LABEL "Ungültige Koordinate genutzt: (, )") + strlen(ANSI_COLOR_CYAN) + strlen(rendered_x)  + strlen(rendered_x) + strlen(ANSI_COLOR_RESET) + strlen("\n") + 1 /*null byte*/;
+        int actual_context_size = (context ? strlen(context) : strlen("\n\n")) + strlen(TESTRUNNER_LABEL ANSI_COLOR_CYAN "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ANSI_COLOR_RESET) * 2 + strlen("\n\n" TESTRUNNER_LABEL "Ungültige Koordinate genutzt: (, )") + strlen(ANSI_COLOR_CYAN) + strlen(rendered_x)  + strlen(rendered_x) + strlen(ANSI_COLOR_RESET) + strlen("\n") + 1 /*null byte*/;
         char *actual_context = (char *)malloc(actual_context_size);
-        snprintf(actual_context, actual_context_size + 1, "%s \n" TESTRUNNER_LABEL "Ungültige Koordinate genutzt: %s(%s, %s)%s\n", (context ? context : "\n\n"), ANSI_COLOR_CYAN, rendered_x, rendered_y, ANSI_COLOR_RESET);
+        snprintf(actual_context, actual_context_size + 1, "%s \n" TESTRUNNER_LABEL "%s!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%s\n" TESTRUNNER_LABEL "Ungültige Koordinate genutzt: %s(%s, %s)%s\n" TESTRUNNER_LABEL "%s!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%s\n", (context ? context : "\n\n"), ANSI_COLOR_CYAN, ANSI_COLOR_RESET, ANSI_COLOR_CYAN, rendered_x, rendered_y, ANSI_COLOR_RESET, ANSI_COLOR_CYAN, ANSI_COLOR_RESET);
 
         free((void *) rendered_x);
         free((void *) rendered_y);
 
         handle_assertion_failure(t, NULL, NULL, actual_context);
+        free(actual_context);
     } else if (canvas_eq(got, expected) != 1) {
-        int actual_context_size = (context ? strlen(context) : strlen("\n\n")) + strlen("\n\n" TESTRUNNER_LABEL "Nichtübereinstimmende Bilder. Visuelles Feedback: ") + strlen(ANSI_COLOR_CYAN) + strlen(name) + strlen(".png") + strlen(ANSI_COLOR_RESET) + strlen("\n") + 1 /*null byte*/;
+        int actual_context_size = (context ? strlen(context) : strlen("\n\n")) + strlen("\n\n" TESTRUNNER_LABEL "Nichtübereinstimmende Bilder. Visuelles Feedback in: ./Feedback/") + strlen(ANSI_COLOR_CYAN) + strlen(name) + strlen(".png") + strlen(ANSI_COLOR_RESET) + strlen("\n") + 1 /*null byte*/;
         char *actual_context = (char *)malloc(actual_context_size);
-        snprintf(actual_context, actual_context_size + 1, "%s \n" TESTRUNNER_LABEL "Nichtübereinstimmende Bilder. Visuelles Feedback: %s%s.png%s\n", (context ? context : "\n\n"), ANSI_COLOR_CYAN, name, ANSI_COLOR_RESET);
+        snprintf(actual_context, actual_context_size + 1, "%s \n" TESTRUNNER_LABEL "Nichtübereinstimmende Bilder. Visuelles Feedback in: %s./Feedback/%s.png%s\n", (context ? context : "\n\n"), ANSI_COLOR_CYAN, name, ANSI_COLOR_RESET);
 
         handle_assertion_failure(t, NULL, NULL, actual_context);
         canvas_feedback(got, expected, name);
@@ -466,7 +467,7 @@ void assert_canvas(Tester *t, Canvas_ *expected, Canvas_ *got, const char *conte
         free(filename);
         //creates a picture of the successful testcase in a Subfolder
         const char* case_number = format_int(t->current_testcase_number);
-        int temp_len = strlen(got->name) + strlen(case_number);
+        int temp_len = strlen(got->name) + strlen(case_number) + 1;
         char* temp_name = malloc(temp_len);
         snprintf(temp_name,temp_len,"%s%s", got->name, case_number);
         free(got->name);
@@ -510,7 +511,7 @@ void assert_bool(Tester *t, bool expected, bool got, const char *context){
 }
 
 const char *format_pointer(void* p) {
-    int size = snprintf("", 0, "%p", p);
+    int size = snprintf(NULL, 0, "%p", p);
     char* r = (char*) mallocx(size + 1);
     snprintf(r, size + 1, "%p", p);
     return r;
@@ -529,7 +530,7 @@ void assert_pointer(Tester *t, void* expected, void* got, const char *context){
 const char *format_uint16_array(uint16_t* arr, size_t arr_len) {
     size_t sum_of_digits = 0;
     for(int i = 0; i < arr_len; i++){
-        size_t size = snprintf("", 0, "%d", arr[i]);
+        size_t size = snprintf(NULL, 0, "%d", arr[i]);
         sum_of_digits += size;
     }
 
@@ -571,7 +572,7 @@ void assert_uint16_array(Tester *t, uint16_t* expected, uint16_t* got, size_t ar
 const char *format_float_array(float* arr, size_t arr_len) {
     size_t sum_of_symbols = 0;
     for(int i = 0; i < arr_len; i++){
-        size_t size = snprintf("", 0, "%.4f", arr[i]);
+        size_t size = snprintf(NULL, 0, "%.4f", arr[i]);
         sum_of_symbols += size;
     }
 

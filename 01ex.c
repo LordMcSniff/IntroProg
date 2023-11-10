@@ -25,7 +25,8 @@ Allen anderen Code in der Datei, wie z.B. die folgenden vier Zeilen, können Sie
 */
 #include <stdio.h>
 
-int simple_assignment(int a, int b) {
+int simple_assignment(int a, int b)
+{
     int result = 0;
     /*
     Aufgabe 1a:
@@ -68,7 +69,8 @@ int simple_assignment(int a, int b) {
     return result;
 }
 
-int nested_expressions(int x, int y) {
+int nested_expressions(int x, int y)
+{
     int result = 0;
     /*
     Aufgabe 1b:
@@ -83,7 +85,8 @@ int nested_expressions(int x, int y) {
     return result;
 }
 
-int rotation(int a, int b, int c) {
+int rotation(int a, int b, int c)
+{
     /*
     Aufgabe 2a:
     Weisen Sie der Variable `a` den ursprünglichen Wert der Variable `b` zu, der Variable `b` den ursprünglichen Wert
@@ -101,7 +104,8 @@ int rotation(int a, int b, int c) {
     return a + (b * 256) + (c * 256 * 256); /* Ja, diese Zeile mag überraschend sein. Einfach ignorieren :-) */
 }
 
-int while_loop(int n) {
+int while_loop(int n)
+{
     int result = 1;
     /*
     Aufgabe 3a:
@@ -121,7 +125,8 @@ int while_loop(int n) {
     return result;
 }
 
-int for_loop(int n) {
+int for_loop(int n)
+{
     int result = 1;
     /*
     Aufgabe 3b:
@@ -139,7 +144,8 @@ int for_loop(int n) {
     return result;
 }
 
-int ones_place(int n) {
+int ones_place(int n)
+{
     int result = 0;
     /*
     Aufgabe 4a:
@@ -154,7 +160,8 @@ int ones_place(int n) {
     return result;
 }
 
-int tens_place(int n) {
+int tens_place(int n)
+{
     int result = 0;
     /*
     Aufgabe 4b:
@@ -171,7 +178,8 @@ int tens_place(int n) {
     return result;
 }
 
-int fine_print1() {
+int fine_print1()
+{
     int result = 0;
     /*
     Aufgabe 5a:
@@ -194,7 +202,8 @@ int fine_print1() {
     return result;
 }
 
-int fine_print2() {
+int fine_print2()
+{
     int result = 0;
     /*
     Aufgabe 5b:
@@ -212,7 +221,8 @@ int fine_print2() {
     return result;
 }
 
-int fine_print3() {
+int fine_print3()
+{
     int result = 0;
     /*
     Aufgabe 5c:
