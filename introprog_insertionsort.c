@@ -6,17 +6,6 @@ int MAX_LENGTH = 1024;
 
 void insertion_sort(int array[], int len)
 {
-    for (size_t i = 1; i < len; i++)
-    {
-        int key = array[i];
-        int j = i - 1;
-        while (j >= 0 && array[j] > key)
-        {
-            array[j + 1] = array[j];
-            j = j - 1;
-        }
-        array[j + 1] = key;
-    }
 }
 
 // gcc -std=c11 -g -Wall introprog_insertionsort.c arrayio.c -o main.o && ./main.o zahlen_insertionsort.txt

@@ -12,7 +12,7 @@
 				"-Werror",
 				"${workspaceRoot}/*.c",
 				"-o",
-				"${workspaceRoot}/out"
+				"${workspaceRoot}/out.o"
 			],
 			"options": {
 				"cwd": "${fileDirname}"

@@ -8,10 +8,8 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/out",
-            "args": [
-                "${workspaceRoot}/zahlen_insertionsort.txt"
-            ],
+            "program": "${workspaceRoot}/out.o",
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
