@@ -23,7 +23,9 @@ Nutzen Sie für die Distanzbestimmung die `distance` Funktion aus `04ex_helpers.
 Headerfile und die zugehörige Implementierung sind bereits eingebunden, die Funktion kann
 also einfach verwendet werden.
 */
-Canvas draw_odd_circle(Canvas c, int px, int py, int R) {
+// Canvas draw_odd_circle(Canvas c, int x, int y, int radius_from_middle) {
+Canvas draw_odd_circle(Canvas c, int px, int py, int R)
+{
     for (size_t y = 0; y < R * 2 + 1; y++)
     {
         for (size_t x = 0; x < R * 2 + 1; x++)
@@ -61,7 +63,8 @@ Sei `a := x1 - x0` und `b := y1 - y0`. Dann liefert uns der Satz des Pythagoras 
 Die Datei `04ex_helpers.h` mit den Hilsfunktionen enthält eine Funktion `squareroot`. Nutzen Sie diese Funktion, um die
 Distanz zu berechnen.
 */
-int my_distance(int x0, int y0, int x1, int y1) {
+int my_distance(int x0, int y0, int x1, int y1)
+{
     int delta_x = x1 - x0;
     int delta_y = y1 - y0;
     return squareroot(delta_x * delta_x + delta_y * delta_y);
@@ -73,7 +76,8 @@ Implementieren Sie nun selbst die Berechnung der abgerundeten Quadratwurzel von 
 Tipp: Finden Sie die größte natürliche Zahl, deren Quadrat kleiner oder gleich `n` ist. Es muss nicht effizient sein, wir
 testen nur mit relativ kleinen Zahlen.
 */
-int my_squareroot(int n) {
+int my_squareroot(int n)
+{
     int limit = n;
     if (n > 4)
         limit = (n + 1) / 2; // wurzel n ist kleiner n halbe für n>4; also müssen nur noch die hälfte der zahlen geprüft werden
@@ -109,7 +113,8 @@ Um Kreise mit _ungeradem_ Durchmesser zu erstellen, können Sie einfach Ihre `dr
 Für Kreise mit _geradem_ Durchmesser rufen Sie Ihre `draw_odd_circle` vier mal auf: Einmal für jeden der vier Pixel
 welche den exakten Mittelpunkt des erwünschten Kreises umgeben.
 */
-Canvas draw_circle(Canvas c, int x, int y, int diameter) {
+Canvas draw_circle(Canvas c, int x, int y, int diameter)
+{
     // c = canvas_set_black(c, 0, 0);
     if (diameter % 2 == 0)
     {
@@ -131,7 +136,8 @@ Dadurch, dass Sie das Problem in kleinere Subprobleme geteilt haben, haben Sie g
 Kreisezeichnen implementiert. Das ist ziemlich cool!
 Geben Sie zur Feier `5` zurück.
 */
-int high_five() {
+int high_five()
+{
     return 5;
 }
 
@@ -143,7 +149,8 @@ die Sie dafür benötigen ist die _Hailstone-Zahl von `n`_.
 Zum Beispiel `hailstone(1) == 0`, `hailstone(4) == 2` (4 -> 2 -> 1), und `hailstone(5) == 5` (5 -> 16 -> 8 -> 4 -> 2 -> 1).
 Berechnen Sie die Hailstone-Zahl vom Parameter `n`.
 */
-int hailstone(int n) {
+int hailstone(int n)
+{
     int c = 0;
     while (n != 1)
     {
@@ -166,6 +173,7 @@ Für die _Bewertung_ von diesem Aufgabenblatt lassen wir Tests für Aufgabe 2a l
 allerdings Ihre eigenen Tests schreiben.
 Lassen Sie `99` von dieser Funktion zurückgeben um zu zeigen, dass Sie das verstanden haben.
 */
-int bring_your_own_tests() {
+int bring_your_own_tests()
+{
     return 99;
 }
