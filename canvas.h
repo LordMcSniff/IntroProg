@@ -11,7 +11,6 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <sys/stat.h>
 #include <sys/types.h>
 
 #define STBI_ONLY_PNG                       //reduces loaded library code to essentials
@@ -24,6 +23,20 @@
 #include "utils.h"
 
 #define NUM_CHANNELS 3
+
+#ifdef _WIN32
+#include <direct.h>
+void make_directory(const char* path, int _)
+{
+    _mkdir(path);
+}
+#else
+#include <sys/stat.h>
+void make_directory(const char* path, mode_t mode)
+{
+    mkdir(path, mode);
+}
+#endif
 
 typedef struct Canvas_ {
     int32_t width;
@@ -181,7 +194,7 @@ void canvas_save_debug (Canvas_* c){
     }
 
     //Creates a Debug directory if one doesnt already exist
-    mkdir("Debug", 0777);
+    make_directory("Debug", 0777);
 
     size_t len = strlen("Debug/debug_") + strlen(c->name) + strlen("_") +  3 /*for counter*/ + strlen(".png") + 1 /*for \0*/;
     char* filename = mallocx(len);
@@ -197,7 +210,7 @@ void canvas_save_debug (Canvas_* c){
 void canvas_save_folder (Canvas_* c, char* folder_name){
 
     //Creates a new directory if one doesnt already exist with that name
-    mkdir(folder_name, 0777);
+    make_directory(folder_name, 0777);
 
     size_t len = strlen(folder_name) + strlen("/") + strlen(c->name) + strlen(".png") + 1 /*for null byte*/;
     char* filename = mallocx(len);
