@@ -9,7 +9,10 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/out.o",
-            "args": [],
+            "args": [
+                "zahlen_*.txt",
+                "asc"
+            ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

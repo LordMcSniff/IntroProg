@@ -1,12 +1,15 @@
 /*
  * MAX_VALUE darf zum Testen abgeändert werden
  */
-int MAX_LAENGE = 1000;
+int MAX_LENGTH = 1024;
 int MAX_VALUE = 100;
 
-typedef enum SortDirection_ {
-    ASCENDING, DESCENDING, NOTDEFINED
-} SortDirection; 
+typedef enum SortDirection_
+{
+    NOTDEFINED,
+    ASCENDING,
+    DESCENDING
+} SortDirection;
 
 /*
     Funktion erstellt auf Basis der Statistik die Ausgabe
@@ -17,15 +20,14 @@ typedef enum SortDirection_ {
 void count_sort_write_output_array(int output_array[], int count_array[], SortDirection order);
 
 /*
-    Funktion errechnet die Statistik 
+    Funktion errechnet die Statistik
     input_array: unsortierte Liste
     len: Länge der eingelesenen Liste
 */
 void count_sort_calculate_counts(int input_array[], int len, int count_array[]);
 
-
 /*
-    Funktion führt bereitet Hilfstrukuren vor 
+    Funktion führt bereitet Hilfstrukuren vor
     input_array: unsortierte Liste
     len: Länge der eingelesenen Liste
     output_array: sortierte Liste
@@ -33,7 +35,7 @@ void count_sort_calculate_counts(int input_array[], int len, int count_array[]);
 void count_sort(int input_array[], int len, int output_array[], SortDirection order);
 
 /*
-    Funktion liest einen String ein und wandelt diesen in den Datentypen 
+    Funktion liest einen String ein und wandelt diesen in den Datentypen
     SortDirection um
 
     return SortDirection
