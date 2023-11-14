@@ -43,13 +43,13 @@ SortDirection extract_order_direction(char *order)
     return NOTDEFINED;
 }
 
-void count_sort(int A[], int len, int B[], SortDirection order)
+void count_sort(int input_array[], int len, int output_array[], SortDirection order)
 {
-    int C[MAX_VALUE + 1]; // 0 to max including both
+    int count_array[MAX_VALUE + 1]; // 0 to max including both
 
-    count_sort_calculate_counts(A, len, C);
+    count_sort_calculate_counts(input_array, len, count_array);
 
-    count_sort_write_output_array(B, C, order);
+    count_sort_write_output_array(output_array, count_array, order);
 }
 
 int main(int argc, char *argv[])
