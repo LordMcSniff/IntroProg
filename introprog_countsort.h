@@ -1,7 +1,7 @@
 /*
  * MAX_VALUE darf zum Testen abgeändert werden
  */
-int MAX_LENGTH = 1024;
+int MAX_LEANGE = 1024;
 int MAX_VALUE = 100;
 
 typedef enum SortDirection_
