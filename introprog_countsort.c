@@ -64,13 +64,13 @@ int main(int argc, char *argv[])
     SortDirection order = extract_order_direction(argv[2]);
     char *filename = argv[1];
 
-    int input_array[MAX_LEANGE];
-    int len = read_array_from_file(input_array, MAX_LEANGE, filename);
+    int input_array[MAX_LAENGE];
+    int len = read_array_from_file(input_array, MAX_LAENGE, filename);
 
     printf("Unsortiertes Array:");
     print_array(input_array, len);
 
-    int output_array[MAX_LEANGE];
+    int output_array[MAX_LAENGE];
     count_sort(input_array, len, output_array, order);
 
     printf("Sortiertes Array:");
