@@ -3,17 +3,36 @@
 #include "introprog_countsort.h"
 #include "arrayio.h"
 
-/* Ab hier Funktion count_sort_calculate_counts implementieren */
 void count_sort_calculate_counts(int input_array[], int len, int count_array[])
 {
+    memset(count_array, 0, (MAX_VALUE + 1) * sizeof(int)); // the compiler initialises arrays to 0, but valgrind doesn't like it
+
+    for (size_t j = 0; j < len; j++)
+    {
+        count_array[input_array[j]] = count_array[input_array[j]] + 1;
+    }
 }
 
-/* Ab hier Funktion count_sort_write_output_array implementieren */
 void count_sort_write_output_array(int output_array[], int count_array[], SortDirection order)
 {
+    int k = 0;
+    for (size_t j = 0; j <= MAX_VALUE; j++)
+    {
+        int index = j;
+        if (order == ASCENDING) // redundent, but who knows what bullshit the test will pull
+            index = j;
+        if (order == DESCENDING)
+            // len of count_array is MAX_VALUE +1, so you dont need to subtract one here
+            index = MAX_VALUE - j;
+
+        for (size_t i = 0; i < count_array[index]; i++)
+        {
+            output_array[k] = index;
+            k = k + 1;
+        }
+    }
 }
 
-/* Ab hier Funktion extract_order_direction implementieren */
 SortDirection extract_order_direction(char *order)
 {
     if (!strcmp(order, "asc"))
@@ -24,47 +43,25 @@ SortDirection extract_order_direction(char *order)
     return NOTDEFINED;
 }
 
-/* Ab hier Funktion count_sort implementieren und entsprechende Funktionsaufrufe einfügen */
 void count_sort(int A[], int len, int B[], SortDirection order)
 {
-    // es ist doch behindert, dass wir die ganze zeit mit malloc arbeiten beigebracht kriegen und es dann nicht beutzen dürfen
-    int C[MAX_LENGTH];
+    int C[MAX_VALUE + 1]; // 0 to max including both
 
-    for (size_t j = 0; j < len; j++)
-    {
-        C[A[j]] = C[A[j]] + 1;
-    }
+    count_sort_calculate_counts(A, len, C);
 
-    int k = 0;
-    for (size_t j = 0; j < MAX_LENGTH; j++)
-    {
-        for (size_t i = 0; i < C[j]; i++)
-        {
-            B[k] = j;
-            k = k + 1;
-        }
-    }
-}
-
-int exit_help(char *filename)
-{
-    printf("Aufruf: %s <Dateiname> asc|desc\n", filename);
-    printf("Beispiel: %s zahlen.txt asc\n", filename);
-    return 1;
+    count_sort_write_output_array(B, C, order);
 }
 
 int main(int argc, char *argv[])
 {
-    if (MAX_VALUE >= MAX_LENGTH) // normally i'd use an assert, but we're not allowed to include other libs
-        return 1;
-
     if (argc < 3)
-        return exit_help(argv[0]);
+    {
+        printf("Aufruf: %s <Dateiname> asc|desc\n", argv[0]);
+        printf("Beispiel: %s zahlen.txt asc\n", argv[0]);
+        return 1;
+    }
 
     SortDirection order = extract_order_direction(argv[2]);
-    if (!order) // NOTDEFINED is set to 0, while the others are 1 and 2
-        return exit_help(argv[0]);
-
     char *filename = argv[1];
 
     int input_array[MAX_LENGTH];
