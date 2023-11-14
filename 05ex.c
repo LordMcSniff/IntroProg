@@ -16,7 +16,8 @@ Zeichnen Sie eine horizontale Linie der Länge `width`, deren am weitesten links
 _Benutzen Sie keine Schleifen - Die Aufgabe soll über Rekursion gelöst werden!_
 
 */
-Canvas recursive_line(Canvas c, int x, int y, int width) {
+Canvas recursive_line(Canvas c, int x, int y, int width)
+{
     if (width <= 0)
         return c;
     if (x >= 0 && x < canvas_width(c)) // das steht nirgens wo in der aufgabe
@@ -30,7 +31,8 @@ Zeichnen Sie ein Rechteck mit der Breite `width` und der Höhe `height`. Der Pix
 
 _Benutzen Sie keine Schleifen, die Aufgabe soll über Rekursion gelöst werden!_
 */
-Canvas recursive_rectangle(Canvas c, int x, int y, int width, int height) {
+Canvas recursive_rectangle(Canvas c, int x, int y, int width, int height)
+{
     // Es zeigt ziehmlich schlechtes management, dass keiner irgendwo angesagt hat, das die Aufgabe unmöglich war und das es ne neue zum runterladen gibt.
     // Das in den Foren irgendwo zu verstecken ist echt gemein. Ihr hättet da wenigstens in die Ankündigungen zetzen.
     // ich hab mehrere Tage an dieser Aufgabe gesessen, weil ich einfach nicht glauben wollte, das ihr nen fehler in den tests gemacht habt.
@@ -81,7 +83,8 @@ nicht-negativen, ganzzahligen Exponenten `exp`.
 
 _Benutzen Sie keine Schleifen, die Aufgabe soll über Rekursion gelöst werden!_
 */
-int power(int b, int exp){
+int power(int b, int exp)
+{
     if (exp <= 0)
         return 1;
 
@@ -94,12 +97,13 @@ Diese Funktion soll den Sierpinski Carpet der Ordnung `n` auf die Canvas zeichne
 
 _Benutzen Sie keine Schleifen, die Aufgabe soll über Rekursion gelöst werden!_
 */
-Canvas sierpinski_carpet(Canvas c, int n, int x, int y){
+Canvas sierpinski_carpet(Canvas c, int n, int x, int y)
+{
     // Canvas sierpinski_carpet(Canvas c, int n, int px, int py) {
     // ist doch behindert, das nach den literall strings geprüft wird
     int px = x;
     int py = y;
-    
+
     if (n <= 0)
         return canvas_set_black(c, px, py);
 
@@ -140,7 +144,11 @@ zu vier direkte Nachbarn - die Diagonalen zählen nicht.
 
 Funktionen, um die Farbe eines Pixels auf der Canvas zu bestimmen, sind im Headerfile der Canvas dokumentiert.
 */
-Canvas bucket_fill(Canvas c, int x, int y) { 
+Canvas bucket_fill(Canvas c, int x, int y)
+{
+    if (x < 0 || x > canvas_width(c) - 1 || y < 0 || y > canvas_height(c) - 1)
+        return c;
+
     if (pixel_is_black(c, x, y))
         return c;
 
