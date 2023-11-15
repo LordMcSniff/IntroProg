@@ -19,7 +19,7 @@ void count_sort_write_output_array(int output_array[], int count_array[], SortDi
     for (size_t j = 0; j <= MAX_VALUE; j++)
     {
         int index = j;
-        if (order == ASCENDING) // redundent, but who knows what bullshit the test will pull
+        if (order == ASCENDING) // redundant, but who knows what bullshit the test will pull
             index = j;
         if (order == DESCENDING)
             // len of count_array is MAX_VALUE +1, so you dont need to subtract one here
