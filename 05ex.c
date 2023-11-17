@@ -8,16 +8,15 @@ cc -std=c11 -g -Wall 05ex_test.c -o 05ex_test.o -lm && ./05ex_test.o
 #include "05_canvas.h"
 #include <stdio.h>
 #include <math.h>
-asdad
-    /*
-    Aufgabe 1a:
-    Zeichnen Sie eine horizontale Linie der Länge `width`, deren am weitesten links liegender Pixel bei `(x, y)` ist.
 
-    _Benutzen Sie keine Schleifen - Die Aufgabe soll über Rekursion gelöst werden!_
+/*
+Aufgabe 1a:
+Zeichnen Sie eine horizontale Linie der Länge `width`, deren am weitesten links liegender Pixel bei `(x, y)` ist.
 
-    */
-    Canvas
-    recursive_line(Canvas c, int x, int y, int width)
+_Benutzen Sie keine Schleifen - Die Aufgabe soll über Rekursion gelöst werden!_
+
+*/
+Canvas recursive_line(Canvas c, int x, int y, int width)
 {
     if (width <= 0)
         return c;
