@@ -20,7 +20,7 @@
 element *insert_at_begin(element *list, element *item)
 {
     item->next = list;
-    return list;
+    return item;
 }
 
 /* Kreiere ein neues Element mit dynamischem Speicher.
@@ -32,9 +32,13 @@ element *insert_at_begin(element *list, element *item)
  *
  * Gib einen Pointer auf das neue Element zurueck.
  */
-element *construct_element(char *title, char *author, uint32_t year, uint64_t isbn)
+element *construct_element(char *_title, char *_author, uint32_t _year, uint64_t _isbn)
 {
     element *item = calloc(1, sizeof(element));
+    strcpy(item->title, _title);
+    strcpy(item->author, _author);
+    item->year = _year;
+    item->isbn = _isbn;
     return item;
 }
 
@@ -50,6 +54,7 @@ void free_list(list *list)
         free(item);
         item = tmp;
     }
+    free(list);
 }
 
 /* Lese die Datei ein und fuege neue Elemente in die Liste ein
