@@ -27,8 +27,8 @@ typedef struct _list
 /* HIER struct _element implementieren. */
 struct _element
 {
-    char *title[MAX_STR]; // Dumm aber ok, wenn ihr dass so wollt
-    char *author[MAX_STR];
+    char title[MAX_STR]; // Dumm aber ok, wenn ihr dass so wollt
+    char author[MAX_STR];
     uint32_t year;
     uint64_t isbn;
 
