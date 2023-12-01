@@ -35,10 +35,11 @@ element *insert_at_begin(element *list, element *item)
 element *construct_element(char *_title, char *_author, uint32_t _year, uint64_t _isbn)
 {
     element *item = calloc(1, sizeof(element));
-    _title[MAX_STR - 1] = '\0';
-    _author[MAX_STR - 1] = '\0';
-    strcpy(item->title, _title);
-    strcpy(item->author, _author);
+
+    memcpy(item->title, _title, MAX_STR);
+    memcpy(item->author, _author, MAX_STR);
+    item->title[MAX_STR - 1] = '\0';
+    item->author[MAX_STR - 1] = '\0';
     item->year = _year;
     item->isbn = _isbn;
     return item;
