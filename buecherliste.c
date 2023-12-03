@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "introprog_buecherliste.h"
+#include "introprog_sortierte_buecherliste.h"
 
 /* Gib die Liste aus:
  * _Soll nicht angepasst werden_
@@ -26,7 +27,7 @@ void print_list(list *alist) {
  */
 int main(int argc, char** argv) {
     list *alist = construct_list();
-    read_list(argc>1?argv[1]:"buecherliste.txt", alist);
+    read_list_sorted(argc>1?argv[1]:"buecherliste.txt", alist);
     print_list(alist);
     free_list(alist);
     return 0;

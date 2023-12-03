@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdint.h>
+#include <string.h>
 #include "introprog_structs_lists_input.h"
 
 void open_file(read_line_context *ctx, const char *filename) {
