@@ -19,22 +19,42 @@
  * Gib einen Pointer auf den neuen oder alten Anfang der Liste
  * zurueck.
  */
-element* insert_sorted(element* /* Variable benennen */, element* /* Variable benennen */) {
-    /* HIER implementieren. */
+element *insert_sorted(element *list, element *new_item)
+{
+    element *start = calloc(1, sizeof(element));
+    element *prev = start;
+
+    prev->next = list;
+    while (prev->next != NULL)
+    {
+        if (prev->next->isbn < new_item->isbn) // angenommen die liste ist aufsteigend sortiert
+            prev = prev->next;
+
+        // if spot was found before end of list, insert and break
+        new_item->next = prev->next;
+        break;
+    }
+    prev->next = new_item;
+
+    list = start->next;
+    free(start);
+    return list;
 }
 
-/* Lese die Datei ein und fuege neue Elemente in die Liste ein 
+/* Lese die Datei ein und fuege neue Elemente in die Liste ein
  * _Soll nicht angepasst werden_
  */
-void read_list_sorted(char* filename, list *alist) {
-    element* new_elem;
-    char* new_title;
-    char* new_author;
+void read_list_sorted(char *filename, list *alist)
+{
+    element *new_elem;
+    char *new_title;
+    char *new_author;
     uint32_t new_year;
     uint64_t new_isbn;
     read_line_context ctx;
     open_file(&ctx, filename);
-    while(read_line(&ctx, &new_title, &new_author, &new_year, &new_isbn) == 0) {
+    while (read_line(&ctx, &new_title, &new_author, &new_year, &new_isbn) == 0)
+    {
         new_elem = construct_element(new_title, new_author, new_year, new_isbn);
         alist->first = insert_sorted(alist->first, new_elem);
         alist->count++;

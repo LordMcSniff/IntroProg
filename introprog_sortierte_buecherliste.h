@@ -1,3 +1,5 @@
+// Warum muss ich das machen? logisch macht es sinn, aber warum ist das nicht bei der vorgabe dabei? selbst nach dem redownload der aufgabe... ?
+#include "introprog_buecherliste.h"
 
 /* Fuege ein Element in die Liste ein, sodass die Liste aufsteigend
  * nach ISBN sortiert ist.  Dafür muss das erste Element ermittelt
@@ -12,9 +14,9 @@
  * Gib einen Pointer auf den neuen oder alten Anfang der Liste
  * zurueck.
  */
-element* insert_sorted(element*, element*);
+element *insert_sorted(element *list, element *new_item);
 
-/* Lese die Datei ein und fuege neue Elemente in die Liste ein 
+/* Lese die Datei ein und fuege neue Elemente in die Liste ein
  * _Soll nicht angepasst werden_
  */
-void read_list_sorted(char*, list*);
+void read_list_sorted(char *, list *);
