@@ -28,7 +28,10 @@ element *insert_sorted(element *list, element *new_item)
     while (prev->next != NULL)
     {
         if (prev->next->isbn < new_item->isbn) // angenommen die liste ist aufsteigend sortiert
+        {
             prev = prev->next;
+            continue;
+        }
 
         // if spot was found before end of list, insert and break
         new_item->next = prev->next;
