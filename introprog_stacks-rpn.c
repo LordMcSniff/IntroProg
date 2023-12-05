@@ -1,22 +1,25 @@
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>  // definiert den speziellen Wert NaN für floats
+#include <math.h> // definiert den speziellen Wert NaN für floats
 #include "introprog_stacks-rpn.h"
 #include "introprog_input_stacks-rpn.h"
 
-/* 
+/*
  * Füge Element am Anfang des Stacks ein
  *
  * char* - Ein Pointer auf den Stack.
  * float - Zahl, die als neues Element auf den Stack gelegt
  *         werden soll.
  */
-void stack_push(stack* /* Variable benennen */, float /* Variable benennen */)
+void stack_push(stack *stack, float input)
 {
-    /* HIER implementieren */
+    stack_element *layer = calloc(1, sizeof(stack_element));
+    layer->value = input;
+    layer->next = stack->top;
+    stack->top = layer;
 }
 
-/* 
+/*
  * Nehme das letzte eingefügte Element vom Anfang des Stacks
  * Gebe NaN zurück, wenn keine Element vorhanden ist.
  *
@@ -24,9 +27,16 @@ void stack_push(stack* /* Variable benennen */, float /* Variable benennen */)
  *
  * Gebe die im Element enthaltenen Zahl zurück
  */
-float stack_pop(stack* /* Variable benennen */)
+float stack_pop(stack *stack)
 {
-    /* HIER implementieren */
+    if (stack->top == NULL)
+        return NAN;
+
+    stack_element *layer = stack->top;
+    float v = layer->value;
+    stack->top = layer->next;
+    free(layer);
+    return v;
 }
 
 /*
@@ -41,29 +51,41 @@ float stack_pop(stack* /* Variable benennen */)
  * stack*  - Ein Pointer auf den Stack
  * char*  - Eine Zeichenkette
  */
-void process(stack* /* Variable benennen */, char* /* Variable benennen */)
+void process(stack *stack, char *token)
 {
-    /* HIER implementieren */
-    printf("\n<Logik fehlt!>\n");
+    if (is_number(token))
+    {
+        stack_push(stack, atof(token));
+    }
+    else if (is_add(token))
+    {
+        float b = stack_pop(stack), a = stack_pop(stack);
+        stack_push(stack, a + b);
+    }
+    else if (is_sub(token))
+    {
+        // double initialisation calls the function once for each var,
+        // but the stack last value on top, so the order is b, a.
+        // This only matters for subtracktion.
+        float b = stack_pop(stack), a = stack_pop(stack);
+        stack_push(stack, a - b);
+    }
+    else if (is_mult(token))
+    {
+        float b = stack_pop(stack), a = stack_pop(stack);
+        stack_push(stack, a * b);
+    }
+
     return;
-    /* Du kannst zur Erkennung der Token folgende Hilfsfunktionen
-     * benutzen:
-     *
-     * Funktion          Rückgabewert von 1 bedeutet
-     * ---------------------------------------------
-     * is_add(token)     Token ist ein Pluszeichen
-     * is_sub(token)     Token ist ein Minuszeichen
-     * is_mult(token)    Token ist ein Multiplikationszeichen
-     * is_number(token)  Token ist eine Zahl
-     */
 }
 
-/* 
+/*
  * Erstelle einen Stack mit dynamischem Speicher.
  * Initialisiere die enthaltenen Variablen.
  *
  * Gebe einen Pointer auf den Stack zurück.
  */
-stack* stack_erstellen() {
-    /* HIER implementieren */
+stack *stack_erstellen()
+{
+    return calloc(1, sizeof(stack));
 }
