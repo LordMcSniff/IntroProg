@@ -23,6 +23,7 @@ element *insert_at_begin(element *list, element *item)
     return item;
 }
 
+
 /* Kreiere ein neues Element mit dynamischem Speicher.
  *
  * title  - Titel des Buches
