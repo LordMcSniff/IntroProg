@@ -36,8 +36,8 @@ element *construct_element(char *_title, char *_author, uint32_t _year, uint64_t
 {
     element *item = calloc(1, sizeof(element));
 
-    memcpy(item->title, _title, MAX_STR);
-    memcpy(item->author, _author, MAX_STR);
+    strncpy(item->title, _title, MAX_STR);
+    strncpy(item->author, _author, MAX_STR);
     item->title[MAX_STR - 1] = '\0';
     item->author[MAX_STR - 1] = '\0';
     item->year = _year;
