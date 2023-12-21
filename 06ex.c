@@ -1,29 +1,43 @@
 /*
-Zur Abgabe einen branch `iprg-b06` erstellen und pushen, in dem als einzige Datei die `06ex.c` liegt.
+Zur Abgabe einen branch `iprg-b06` erstellen und pushen, in dem als einzige
+Datei die `06ex.c` liegt.
 */
 
 /*
-Um die Tests für dieses Blatt zu kompilieren und zu starten, führen Sie den folgenden Befehl aus:
-cc -std=c11 -g -Wall -Werror 06ex_test.c -o 06ex_test.o -lm && ./06ex_test.o
+Um die Tests für dieses Blatt zu kompilieren und zu starten, führen Sie den
+folgenden Befehl aus: cc -std=c11 -g -Wall -Werror 06ex_test.c -o 06ex_test.o
+-lm && ./06ex_test.o
 
-Wir empfehlen, mit möglichst streng eingestelltem valgrind zu testen, denn so testen wir auch auf dem Server:
-cc -std=c11 -g -Wall -Werror 06ex_test.c -o 06ex_test.o -lm && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./06ex_test.o
+Wir empfehlen, mit möglichst streng eingestelltem valgrind zu testen, denn so
+testen wir auch auf dem Server: cc -std=c11 -g -Wall -Werror 06ex_test.c -o
+06ex_test.o -lm && valgrind --leak-check=full --show-leak-kinds=all
+--track-origins=yes ./06ex_test.o
 */
 
-#include "array_visualizer.h"
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
+
+#include "array_visualizer.h"
 
 /*
 Aufgabe 1:
-Machen Sie sich in dieser Aufgabe mit dem `Visualizer` (siehe array_visualizer.h) vertraut.
-Nutzen Sie die `visualizer_append_array` Funktion damit die Tests durchlaufen.
+Machen Sie sich in dieser Aufgabe mit dem `Visualizer` (siehe
+array_visualizer.h) vertraut. Nutzen Sie die `visualizer_append_array` Funktion
+damit die Tests durchlaufen.
 
 Tipp 1: Die erste Zeile im erzeugten Bild stellt das Eingabearray dar.
 */
 void warmup(Visualizer *v, uint8_t *arr, size_t len) {
-    
+    uint8_t *sample = calloc(len * 2, sizeof(uint8_t));
+    memcpy(sample, arr, len * sizeof(uint8_t));
+    memcpy(sample + len, arr, len * sizeof(uint8_t));
+
+    for (int i = 0; i < len; i++) {
+        visualizer_append_array(v, sample + i);
+    }
+
+    free(sample);
 }
 
 /*
@@ -32,8 +46,7 @@ Bringen Sie die Tests zum durchlaufen.
 
 Tipp 1: Die erste Zeile im erzeugten Bild stellt das Eingabearray dar.
 Tipp 2: Es handelt sich um eine Abwandlung von iterativem Mergesort.
-Tipp 3: `len` ist immer eine Dreierpotenz, damit Sie sich nicht mit Rundungsdetails herumschlagen brauchen.
+Tipp 3: `len` ist immer eine Dreierpotenz, damit Sie sich nicht mit
+Rundungsdetails herumschlagen brauchen.
 */
-void sort_it(Visualizer *v, uint8_t *arr, size_t len) {
-    
-}
+void sort_it(Visualizer *v, uint8_t *arr, size_t len) {}
