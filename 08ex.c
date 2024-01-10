@@ -168,7 +168,6 @@ ArrayWithLength merge_k(ArrayWithLength *arrs, size_t count) {
         values[i] = arrs[i].arr[0];
 
     //! 4. Step merge the arrays
-    // // TODO: loop condition
     while (ret.len < total_len) {
         size_t I = max_index(values, count);
 
