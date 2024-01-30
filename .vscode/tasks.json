@@ -10,7 +10,8 @@
 				"-std=c11",
 				"-Wall",
 				"-Werror",
-				"${workspaceRoot}/*.c",
+				"-lm",
+				"${workspaceRoot}/*ex_test.c",
 				"-o",
 				"${workspaceRoot}/out.o"
 			],
