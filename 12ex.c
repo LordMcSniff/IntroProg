@@ -15,10 +15,14 @@ cc -std=c11 -g -Wall -Werror 12ex_test.c -o 12ex_test.o -lm && valgrind --leak-c
 #include <stdbool.h>
 #include <stdlib.h>
 
-size_t height_or_zero(HeightTreeNode *t) {
-    if (t == NULL) {
+size_t height_or_zero(HeightTreeNode *t)
+{
+    if (t == NULL)
+    {
         return 0;
-    } else {
+    }
+    else
+    {
         return t->height;
     }
 }
@@ -38,16 +42,38 @@ das Item des Elternkotens (oder NULL für die Wurzel).
 Die Baumausgabe nimmt den zurückgegebenen Knoten als Wurzel. Sollte die Baumausgabe komplett
 überraschend aussehen, könnte das gut an einer falsch zurückgegebenen Wurzel liegen.
 */
-HeightTreeNode *rotate_right(HeightTreeNode *t) {
-    return t;
+HeightTreeNode *rotate_right(HeightTreeNode *t)
+{
+    HeightTreeNode *Root = t;
+    HeightTreeNode *LeftChild = t->left;
+
+    Root->height = height_or_zero(Root->right) + 1;
+
+    Root->left = LeftChild->right;
+    if (Root->left)
+    {
+        Root->left->parent = Root;
+        Root->height = fmax(Root->left->height, Root->height - 1) + 1;
+    }
+
+    Root->parent = LeftChild;
+    LeftChild->right = t;
+    LeftChild->parent = NULL;
+
+    LeftChild->height = Root->height + 1;
+
+    LeftChild->height = fmax(LeftChild->height - 1, height_or_zero(LeftChild->left)) + 1;
+
+    return LeftChild;
 }
 
 /*
 Die vier möglichen Sequenzen von Rotationen, um einen Beinahe-AVL-Baum in einen AVL-Baum zu überführen.
 */
-typedef enum Rotations_ {
-    Left, /* eine Linksrotation */
-    Right, /* eine Rechtsrotation */
+typedef enum Rotations_
+{
+    Left,                    /* eine Linksrotation */
+    Right,                   /* eine Rechtsrotation */
     DoubleRotationLeftRight, /* Doppelrotation: erst Linksrotation, dann Rechtsrotation */
     DoubleRotationRightLeft, /* Doppelrotation: erst Rechtsrotation, dann Linksrotation */
 } Rotations;
@@ -57,6 +83,28 @@ Aufgabe 2:
 
 Gegeben ein Beinahe-AVL-Baum mit korrekten Höhenwerten, geben Sie zurück, welche Rotationen ihn zu einem AVL-Baum machen.
 */
-Rotations determine_rotations(HeightTreeNode *t) {
+Rotations determine_rotations(HeightTreeNode *t)
+{
+    int8_t balance = height_or_zero(t->left) - height_or_zero(t->right);
+    // printf(" > %hhi", balance);
+
+    if (balance > 1)
+    {
+        if (height_or_zero(t->left->left) >= height_or_zero(t->left->right))
+        {
+            return Right;
+        }
+        return DoubleRotationLeftRight;
+    }
+
+    if (balance < -1)
+    {
+        if (height_or_zero(t->right->left) <= height_or_zero(t->right->right))
+        {
+            return Left;
+        }
+        return DoubleRotationRightLeft;
+    }
+
     return Left;
 }
