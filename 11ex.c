@@ -32,8 +32,34 @@ Imaginäre Bonuspunkte, wenn Ihre Implementierung in linearzeit läuft.
 
 Tipp: Die erste Zeile im erzeugten Bild stellt das Eingabearray dar.
 */
-void visualize_partition(Visualizer *v, uint8_t *arr, size_t len) {
+void visualize_partition(Visualizer *v, uint8_t *arr, size_t len)
+{
     visualizer_append_array(v, arr);
+
+    size_t p = len - 1;
+    uint16_t pval = arr[p];
+
+    size_t i = 0;
+
+    while (p > i)
+    {
+        // skip if not bigger
+        if (arr[i] < arr[p])
+        {
+            i++;
+            continue;
+        }
+
+        arr[p] = arr[i];
+        arr[i] = arr[p - 1];
+        // eigentlich ist das irrelevant,
+        // nur der letzte loop muss pval schreiben, aber der visualizer wills so
+        arr[p - 1] = pval;
+
+        visualizer_append_array(v, arr);
+        p--;
+    }
+
     return;
 }
 
@@ -47,7 +73,48 @@ Tipp 1: Die erste Zeile im erzeugten Bild stellt das Eingabearray dar.
 Tipp 2: Visualisieren Sie außerdem das Array immer nachdem Sie ein Teilarray der Größe mindestens zwei partitioniert haben.
 Tipp 3: Diese Funktion selbst lässt sich nicht sinnvoll rekursiv aufrufen. Schreiben Sie eine geeignete Funktion, und rufen Sie sie in `sort_quickly` auf.
 */
-void sort_quickly(Visualizer *v, uint8_t *arr, size_t len) {
+// returns the index of pivot the rest can be interpolated from that
+size_t part(uint8_t *arr, size_t len)
+{
+    size_t p = len - 1;
+    uint16_t pval = arr[p];
+
+    size_t i = 0;
+
+    while (p > i)
+    {
+        // skip if not bigger
+        if (arr[i] < pval)
+        {
+            i++;
+            continue;
+        }
+
+        arr[p] = arr[i];
+        arr[i] = arr[p - 1];
+
+        p--;
+    }
+    arr[p] = pval;
+
+    return p;
+}
+
+void quicksort_rec(Visualizer *v, uint8_t *arr, size_t index, size_t len)
+{
+    size_t p = part(arr + index, len);
     visualizer_append_array(v, arr);
+
+    if (p > 1)
+        quicksort_rec(v, arr, index, p);
+
+    if (p < len - 2)
+        quicksort_rec(v, arr, index + p + 1, len - p - 1);
+}
+
+void sort_quickly(Visualizer *v, uint8_t *arr, size_t len)
+{
+    visualizer_append_array(v, arr);
+    quicksort_rec(v, arr, 0, len);
     return;
 }
